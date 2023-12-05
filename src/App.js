@@ -1,24 +1,74 @@
-import logo from './logo.svg';
-import './App.css';
+
+
+
+
+// // App.js
+
+// import React from 'react';
+// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// import Login from './Login';
+
+// import UserList from './component/UserList';
+
+// import Register from './Register';
+// import UserTypeList from './component/usertypelist';
+// import Home from './component/Home';
+// import Leave from './component/Leave';
+
+// function App() {
+//   return (
+//     <Router>
+//       <Routes>
+//         <Route path="/login" element={<Login />} />
+//         <Route path="/" element={<Home />}>
+//           <Route index element={<Login />} />
+//           <Route path="userlist" element={<UserList />} />
+//           <Route path="usertypelist" element={<UserTypeList />} />
+//           <Route path="register" element={<Register />} />
+//           <Route path="leave" element={<Leave />} />
+//         </Route>
+//       </Routes>
+//     </Router>
+//   );
+// }
+
+// export default App;
+
+
+
+
+
+// App.js
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import Login from './Login';
+import UserList from './component/UserList';
+import Register from './Register';
+import UserTypeList from './component/usertypelist';
+import Home from './component/Home';
+import Leave from './component/Leave';
+import { selectIsAuthenticated } from './slices/authSlice';
 
 function App() {
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/"
+          element={isAuthenticated ? <Home /> : <Login />}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Route index element={<Login />} />
+          <Route path="userlist" element={<UserList />} />
+          <Route path="usertypelist" element={<UserTypeList />} />
+          <Route path="register" element={<Register />} />
+          <Route path="leave" element={<Leave />} />
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 
