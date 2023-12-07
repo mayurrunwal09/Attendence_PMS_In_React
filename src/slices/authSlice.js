@@ -1,76 +1,40 @@
-// // authSlice.js
-// import { createSlice } from '@reduxjs/toolkit';
 
-// const authSlice = createSlice({
-//   name: 'auth',
-//   initialState: {
-//     token: localStorage.getItem('token') || null,
-//     isAuthenticated: Boolean(localStorage.getItem('token')),
-//   },
-//   reducers: {
-//     setToken: (state, action) => {
-//       state.token = action.payload;
-//       state.isAuthenticated = true;
-//     },
-//     clearToken: (state) => {
-//       state.token = null;
-//       state.isAuthenticated = false;
-//     },
-//   },
-
-  
-// });
-
-// export const { setToken, clearToken } = authSlice.actions;
-// export default authSlice.reducer;
-
-
-
-// authSlice.js
 import { createSlice } from '@reduxjs/toolkit';
-import { jwtDecode } from 'jwt-decode';
 
-const initialToken = localStorage.getItem('token');
+const initialState = {
+  user: null,
+  token: localStorage.getItem('token') || null,
+  error: null,
+};
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState: {
-    token: initialToken || null,
-    isAuthenticated: initialToken ? true : false,
-  },
+  initialState,
   reducers: {
-    setToken: (state, action) => {
-      const token = action.payload;
+    loginSuccess: (state, action) => {
+      state.user = action.payload.user;
+      state.userId = action.payload.user?.id;
+      state.token = action.payload.token;
+      state.error = null;
 
-      // Validate the token here if needed
-      const decodedToken = jwtDecode(token);
-      const currentTimestamp = Math.floor(Date.now() / 1000);
-
-      if (decodedToken.exp && decodedToken.exp < currentTimestamp) {
-        // Token is expired, handle accordingly
-        localStorage.removeItem('token');
-        state.token = null;
-        state.isAuthenticated = false;
-      } else {
-        // Token is valid
-        state.token = token;
-        state.isAuthenticated = true;
-      }
+      localStorage.setItem('token', action.payload.token);
     },
-    clearToken: (state) => {
-      localStorage.removeItem('token');
+    loginFailure: (state, action) => {
+      state.user = null;
       state.token = null;
-      state.isAuthenticated = false;
+      state.error = action.payload;
+
+      localStorage.removeItem('token');
+    },
+    logout: (state) => {
+      state.user = null;
+      state.token = null;
+      state.error = null;
+
+      localStorage.removeItem('token');
     },
   },
 });
 
-export const { setToken, clearToken } = authSlice.actions;
-
-// Selector to check authentication status
-export const selectIsAuthenticated = (state) => state.auth.isAuthenticated;
-
-// Additional selector to get the token
-export const selectToken = (state) => state.auth.token;
-
+export const { loginSuccess, loginFailure, logout } = authSlice.actions;
 export default authSlice.reducer;

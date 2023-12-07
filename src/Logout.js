@@ -1,19 +1,21 @@
 // Logout.js
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { logout } from './authThunks';
+import { useNavigate } from 'react-router-dom';
+import { logout } from './slices/authSlice';
 
 function Logout() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
     dispatch(logout());
-    // Redirect or perform any action after logout
+    navigate('/login');
   };
 
   return (
     <div>
-      <h2>Logout</h2>
+      <h2></h2>
       <button type="button" onClick={handleLogout}>
         Logout
       </button>

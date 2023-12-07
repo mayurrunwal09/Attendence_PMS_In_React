@@ -1,10 +1,12 @@
+// src/store.js
+
 import { configureStore } from '@reduxjs/toolkit';
 import { useReducer } from 'react';
-import userSlice from './slices/userSlice';
-import usertypeSlice from './slices/usertypeSlice';
+import userSlice from './slices/User/userSlice';
+import usertypeSlice from './slices/UserType/usertypeSlice';
 import authSlice from './slices/authSlice';
-import leaveSlice from './slices/leaveSlice';
 
+import { leaveReducer } from './slices/Leave/leaveSlice';
 
 
 const store = configureStore({
@@ -12,7 +14,7 @@ const store = configureStore({
     users: userSlice,
     userTypes : usertypeSlice,
     auth : authSlice,
-    leave : leaveSlice,
+    leave : leaveReducer,
     // Add other reducers here if needed
   },
 });

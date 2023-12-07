@@ -1,16 +1,11 @@
-
+// src/component/insertLeave/AddLeave.js
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  fetchLeave,
-  createLeave,
-  rejectLeave,
-  approvedLeave,
-  fetchUserLeave,
-} from '../slices/Leave/leaveSlice';
+import { createLeave, fetchUserLeave } from '../../slices/Leave/addleaveSlice';
 
 
-function Leave() {
+
+function AddLeave() {
   const dispatch = useDispatch();
   const leaves = useSelector((state) => state.leave.users);
   const status = useSelector((state) => state.leave.status);
@@ -32,9 +27,7 @@ function Leave() {
     userId: 0,
   });
 
-  useEffect(() => {
-    dispatch(fetchLeave());
-  }, [dispatch]);
+
 
   useEffect(() => {
     if (userLeaveData.userId) {
@@ -47,23 +40,12 @@ function Leave() {
     setLeaveData({ ...leaveData, [name]: value });
   };
 
-
-  const handleRejectLeave = (leaveId) => {
-    if (leaveId) {
-      dispatch(rejectLeave(leaveId));
-      setShowRejectInput(false);
-    } else {
-      console.error('Invalid leaveId');
-    }
+  const handleSubmit = () => {
+    dispatch(createLeave(leaveData));
   };
 
-  const handleApproveLeave = (leaveId) => {
-    if (leaveId) {
-      dispatch(approvedLeave(leaveId));
-    } else {
-      console.error('Invalid leaveId');
-    }
-  };
+ 
+
 
   const handleUserInputChange = (e) => {
     const { name, value } = e.target;
@@ -107,66 +89,54 @@ function Leave() {
 
   return (
     <div>
-    
-     
-     
+      <h2>Insert Leave</h2>
+      <form>
+   
+      <form>
+      <label>User ID:</label>
+        <input type="number" name="userId" value={leaveData.userId} onChange={handleInputChange} />
 
-      <h2>Leave List</h2>
-      <table>
-        <thead>
-          <tr>
-          <th> ID</th>
-            <th>User ID</th>
-            <th>Leave Type</th>
-            <th>Start Leave Date</th>
-            <th>End Leave Date</th>
-            <th>Reason</th>
-            <th>Request Time</th>
-            <th>ApprovalTime</th>        
-            <th>approvalStatus</th>
-          </tr>
-        </thead>
-        <tbody>
-          {leaves.map((leave) => (
-            <tr key={leave.leaveId}>
-               <td>{leave.id}</td>
-              <td>{leave.userId}</td>
-              <td>{leave.leaveType}</td>
-              <td>{leave.startLeaveDate}</td>
-              <td>{leave.endLeaveDate}</td>
-              <td>{leave.reason}</td>
-              <td>{leave.requestTime}</td>
-              <td>{leave.approvalTime}</td>
-              <td>{leave.approvalStatus}</td>
-              <td>
-              <button
-                  type="button"
-                  onClick={() => {
-                    console.log('Reject leaveId:', leave.id);
-                    handleRejectLeave(leave.id);
-                  }}
-                >
-                  Reject
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    console.log('Approve leaveId:', leave.id);
-                    handleApproveLeave(leave.id);
-                  }}
-                >
-                  Approve
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+        <label>Leave Type:</label>
+        <input type="text" name="leaveType" value={leaveData.leaveType} onChange={handleInputChange} />
+
+        <label>Start Leave Date:</label>
+        <input type="datetime-local" name="startLeaveDate" value={leaveData.startLeaveDate} onChange={handleInputChange} />
+
+        <label>End Leave Date:</label>
+        <input type="datetime-local" name="endLeaveDate" value={leaveData.endLeaveDate} onChange={handleInputChange} />
+
+   
+
+        <label>Reason:</label>
+        <input type="text" name="reason" value={leaveData.reason} onChange={handleInputChange} />
+
+       
+        <button type="button" onClick={handleSubmit}>
+          Submit Leave
+        </button>
+      </form>
+    
+      </form>
+      <h2>Fetch User Leave</h2>
+      <form>
+        <label>User ID:</label>
+        <input
+          type="number"
+          name="userId"
+          value={userLeaveData.userId}
+          onChange={handleUserInputChange}
+        />
+        <button type="button" onClick={handleFetchUserLeave}>
+          Fetch User Leave
+        </button>
+      </form>
+     
     </div>
   );
 }
 
-export default Leave;
+export default AddLeave;
+
 
 
 

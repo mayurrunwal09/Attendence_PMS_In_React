@@ -1,193 +1,105 @@
 
-
-
-
-// // Login.js
-// import React, { useState } from 'react';
-// import { Link } from 'react-router-dom';
-
-// function Login() {
-//   const [username, setUsername] = useState('');
-//   const [password, setPassword] = useState('');
-
-//   const handleLogin = async () => {
-//     try {
-//       const response = await fetch('https://localhost:44369/api/Login/Login', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({
-//           UserName: username,
-//           Password: password,
-//         }),
-//       });
-  
-//       if (!response.ok) {
-//         throw new Error('Invalid credentials');
-//       }
-  
-//       const data = await response.json();
-//       console.log('API Response:', data);
-  
-//       // Check if the response contains the token
-//       if (data.token) {
-//         const token = data.token;
-//         console.log('JWT Token:', token);
-//         localStorage.setItem('token', token);
-//         // Redirect or perform any action after successful login
-//       } else {
-//         throw new Error('Token not found in API response');
-//       }
-//     } catch (error) {
-//       console.error('Login failed:', error.message);
-//     }
-//   };
-  
-//   return (
-//     <div>
-//       <h2>Login</h2>
-//       <form>
-//         <div>
-//           <label htmlFor="username">Username:</label>
-//           <input
-//             type="text"
-//             id="username"
-//             value={username}
-//             onChange={(e) => setUsername(e.target.value)}
-//           />
-//         </div>
-//         <div>
-//           <label htmlFor="password">Password :</label>
-//           <input
-//             type="password"
-//             id="password"
-//             value={password}
-//             onChange={(e) => setPassword(e.target.value)}
-//           />
-//         </div>
-//         <button type="button" onClick={handleLogin}>
-//           Login
-//         </button>
-//       </form>
-//       <div>
-//         <p>
-//           Don't have an account? <Link to="/register">Register here</Link>.
-//         </p>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Login;
-
-
-
-
-
-
-
-
-
-
-
-
+// Login.js
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from './AuthContext'; // Import useAuth
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { setToken } from './slices/authSlice';
-import { jwtDecode } from 'jwt-decode';
+import { loginSuccess, loginFailure } from './slices/authSlice';
+import { Link } from 'react-router-dom';
 
-function Login() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+const Login = () => {
+  const { handleLogin, isAuthenticated } = useAuth(); // Use handleLogin and isAuthenticated from useAuth
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
 
-  const handleLogin = async () => {
+  const handleLoginClick = async () => {
     try {
+      // Validation for required fields
+      if (!username || !password) {
+        throw new Error('Username and Password are required.');
+      }
+
       const response = await fetch('https://localhost:44369/api/Login/Login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          UserName: username,
-          Password: password,
-        }),
+        body: JSON.stringify({ username, password }),
       });
 
       if (!response.ok) {
-        throw new Error('Invalid credentials');
+        throw new Error(`Enter Correct username and password: ${response.statusText}`);
       }
 
       const data = await response.json();
-      console.log('API Response:', data);
 
-      // Check if the response contains the token
       if (data.token) {
-        const token = data.token;
-        console.log('JWT Token:', token);
+        // Display the token in the console
+        console.log('JWT Token:', data.token);
 
-        const decodedToken = jwtDecode(token);
-        const currentTimestamp = Math.floor(Date.now() / 1000);
+        // Perform other actions with the token if needed
 
-        if (decodedToken.exp && decodedToken.exp < currentTimestamp) {
-          throw new Error('Token has expired');
-        }
-
-        localStorage.setItem('token', token);
-        dispatch(setToken(token));
-
-        // Redirect to the home page after successful login
-        navigate('/');
+        // Update Redux store and navigate after successful login
+        handleLogin(data.token);
+        dispatch(loginSuccess({ user: data.user, token: data.token }));
+        navigate('/'); // Redirect to home after successful login
       } else {
         throw new Error('Token not found in API response');
       }
     } catch (error) {
-      console.error('Login failed:', error.message);
+      console.error('Error during login:', error);
+      setError(`An error occurred during login: ${error.message}`);
+      dispatch(loginFailure(`An error occurred during login: ${error.message}`));
     }
   };
-  
+
+  // Redirect to home if already authenticated
+  if (isAuthenticated) {
+    navigate('/');
+  }
+
   return (
     <div>
       <h2>Login</h2>
+      <div style={{ color: 'red' }}>{error}</div>
       <form>
-        <div>
-          <label htmlFor="username">Username:</label>
+        <label>
+          Username:
           <input
             type="text"
-            id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            placeholder='Enter UserName'
+            required
           />
-        </div>
-        <div>
-          <label htmlFor="password">Password :</label>
+        </label>
+        <br />
+        <label>
+          Password:
           <input
             type="password"
-            id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            placeholder='Enter Password'
+            required 
           />
-        </div>
-        <button type="button" onClick={handleLogin}>
+        </label>
+        <br />
+        <button type="button" onClick={handleLoginClick}>
           Login
         </button>
       </form>
-      <div>
-        <p>
-          Don't have an account? <Link to="/register">Register here</Link>.
-        </p>
-      </div>
+      <p>
+        Don't have an account? <Link to="/register">Register here</Link>.
+      </p>
     </div>
   );
-}
+};
 
 export default Login;
-
-
-
 
 
 

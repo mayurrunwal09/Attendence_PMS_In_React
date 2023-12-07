@@ -1,75 +1,41 @@
 
-
-
-
-// // App.js
-
-// import React from 'react';
-// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// import Login from './Login';
-
-// import UserList from './component/UserList';
-
-// import Register from './Register';
-// import UserTypeList from './component/usertypelist';
-// import Home from './component/Home';
-// import Leave from './component/Leave';
-
-// function App() {
-//   return (
-//     <Router>
-//       <Routes>
-//         <Route path="/login" element={<Login />} />
-//         <Route path="/" element={<Home />}>
-//           <Route index element={<Login />} />
-//           <Route path="userlist" element={<UserList />} />
-//           <Route path="usertypelist" element={<UserTypeList />} />
-//           <Route path="register" element={<Register />} />
-//           <Route path="leave" element={<Leave />} />
-//         </Route>
-//       </Routes>
-//     </Router>
-//   );
-// }
-
-// export default App;
-
-
-
-
-
-// App.js
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { AuthProvider } from './AuthContext';
 import Login from './Login';
-import UserList from './component/UserList';
+import Home, { UserList, UserTypeList, Leave,AddLeave } from './component/Home'; // Corrected import
+
 import Register from './Register';
-import UserTypeList from './component/usertypelist';
-import Home from './component/Home';
-import Leave from './component/Leave';
-import { selectIsAuthenticated } from './slices/authSlice';
+import ProtectedRoute from './ProtectedRoute';
 
-function App() {
-  const isAuthenticated = useSelector(selectIsAuthenticated);
-
+const App = () => {
   return (
     <Router>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route
-          path="/"
-          element={isAuthenticated ? <Home /> : <Login />}
-        >
-          <Route index element={<Login />} />
-          <Route path="userlist" element={<UserList />} />
-          <Route path="usertypelist" element={<UserTypeList />} />
-          <Route path="register" element={<Register />} />
-          <Route path="leave" element={<Leave />} />
-        </Route>
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/" element={<ProtectedRoute />}>
+            <Route path="/Home" element={<Home />} />
+            <Route path="userlist" element={<UserList />} />
+            <Route path="usertypelist" element={<UserTypeList />} />
+            <Route path="leave" element={<Leave />} />
+            <Route path="Applyleave" element={<AddLeave />} />
+          </Route>
+        </Routes>
+      </AuthProvider>
     </Router>
   );
-}
+};
 
 export default App;
+
+
+
+
+
+
+
+
+
+

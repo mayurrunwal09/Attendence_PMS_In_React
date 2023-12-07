@@ -1,7 +1,15 @@
-// Home.js
 
+
+// src/component/Home.js
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import Logout from '../Logout';
+import UserList from './UserList';
+import UserTypeList from './UserTypeList';
+import Leave from './Leave';
+import AddLeave from './InsertLeave/AddLeave'
+
+
 
 function Home() {
   return (
@@ -17,11 +25,15 @@ function Home() {
           <li>
             <Link to="usertypelist">User Type List</Link>
           </li>
-          <ul>
-            <Link to="register"></Link>
-          </ul>
           <li>
             <Link to="leave">Leave List</Link>
+          </li>
+          <li>
+            <Link to="Applyleave">Apply Leave</Link>
+          </li>
+
+          <li>
+            <Logout />
           </li>
         </ul>
       </nav>
@@ -31,3 +43,10 @@ function Home() {
 }
 
 export default Home;
+export { UserList, UserTypeList, Leave,AddLeave };
+
+
+
+
+
+
