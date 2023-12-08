@@ -7,8 +7,8 @@ import Logout from '../Logout';
 import UserList from './UserList';
 import UserTypeList from './UserTypeList';
 import Leave from './Leave';
+import Report from './Report';
 import AddLeave from './InsertLeave/AddLeave'
-
 
 
 function Home() {
@@ -31,6 +31,9 @@ function Home() {
           <li>
             <Link to="Applyleave">Apply Leave</Link>
           </li>
+          <li>
+            <Link to="Report">Report</Link>
+          </li>
 
           <li>
             <Logout />
@@ -43,7 +46,9 @@ function Home() {
 }
 
 export default Home;
-export { UserList, UserTypeList, Leave,AddLeave };
+export { UserList, UserTypeList, Leave,AddLeave,Report };
+
+
 
 
 

@@ -7,7 +7,9 @@ import usertypeSlice from './slices/UserType/usertypeSlice';
 import authSlice from './slices/authSlice';
 
 import { leaveReducer } from './slices/Leave/leaveSlice';
-
+import reposrtSlice from './slices/Report/reposrtSlice';
+import { reportReducer } from './slices/Report/reposrtSlice';
+import { addleaveReducer } from './slices/Leave/addleaveSlice';
 
 const store = configureStore({
   reducer: {
@@ -15,6 +17,8 @@ const store = configureStore({
     userTypes : usertypeSlice,
     auth : authSlice,
     leave : leaveReducer,
+    report : reportReducer,
+    addleave : addleaveReducer,
     // Add other reducers here if needed
   },
 });

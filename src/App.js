@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './AuthContext';
 import Login from './Login';
-import Home, { UserList, UserTypeList, Leave,AddLeave } from './component/Home'; // Corrected import
+import Home, { UserList, UserTypeList, Leave,AddLeave,Report } from './component/Home'; // Corrected import
 
 import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
@@ -21,6 +21,7 @@ const App = () => {
             <Route path="usertypelist" element={<UserTypeList />} />
             <Route path="leave" element={<Leave />} />
             <Route path="Applyleave" element={<AddLeave />} />
+            <Route path="Report" element={<Report />} />
           </Route>
         </Routes>
       </AuthProvider>
