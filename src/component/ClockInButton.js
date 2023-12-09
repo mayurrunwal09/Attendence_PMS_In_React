@@ -1,31 +1,39 @@
+
+
+
+
+
+
+
+
+
+
+
+
 import React, { useState } from 'react';
 import { Button, CircularProgress } from '@mui/material';
 import { jwtDecode } from 'jwt-decode';
 
-const ClockInButton = () => {
+const ClockInOutButtons = () => {
   const [isClockInClicked, setClockInClicked] = useState(false);
   const [isClockInLoading, setClockInLoading] = useState(false);
 
   const handleClockIn = async () => {
     try {
-      // Extract UserId from JWT token
       const token = localStorage.getItem('token');
       const userIdFromToken = jwtDecode(token).UserId;
 
-      // Check if userIdFromToken is a valid user in your system
       if (!userIdFromToken) {
         console.error('Invalid user id from token');
         return;
       }
 
-      setClockInLoading(true); // Set loading state
+      setClockInLoading(true);
 
-      // Perform the ClockIn API call
       const response = await fetch('https://localhost:44369/api/Attendence/ClockIn', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // Add any other headers if needed
         },
         body: JSON.stringify({
           userId: userIdFromToken,
@@ -35,16 +43,47 @@ const ClockInButton = () => {
 
       if (response.ok) {
         console.log('Clock In successful');
-        setClockInClicked(true); // Set state to true after successful clock in
-        // You can perform any additional actions upon successful clock in
+        setClockInClicked(true);
       } else {
         console.error('Clock In failed');
-        // Handle error scenarios
       }
     } catch (error) {
       console.error('Unexpected error:', error.message);
     } finally {
-      setClockInLoading(false); // Reset loading state
+      setClockInLoading(false);
+    }
+  };
+
+  const handleClockOut = async () => {
+    // Similar logic as Clock In, adjust the API endpoint as needed
+    try {
+      const token = localStorage.getItem('token');
+      const userIdFromToken = jwtDecode(token).UserId;
+
+      if (!userIdFromToken) {
+        console.error('Invalid user id from token');
+        return;
+      }
+
+      const response = await fetch('https://localhost:44369/api/ClockOut/InserClockOut', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: userIdFromToken,
+          checkInTime: new Date().toISOString(),
+        }),
+      });
+
+      if (response.ok) {
+        console.log('Clock Out successful');
+        // Additional actions upon successful Clock Out
+      } else {
+        console.error('Clock Out failed');
+      }
+    } catch (error) {
+      console.error('Unexpected error:', error.message);
     }
   };
 
@@ -58,9 +97,19 @@ const ClockInButton = () => {
       >
         {isClockInLoading ? <CircularProgress size={24} color="inherit" /> : 'Clock In'}
       </Button>
+
+      {isClockInClicked && (
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleClockOut}
+          disabled={/* Add your condition for disabling Clock Out button */ false}
+        >
+          Clock Out
+        </Button>
+      )}
     </div>
   );
 };
 
-export default ClockInButton;
-
+export default ClockInOutButtons;
