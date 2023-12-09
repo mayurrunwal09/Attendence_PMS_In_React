@@ -6,13 +6,14 @@
 // import { useDispatch, useSelector } from 'react-redux';
 // import { createLeave, fetchUserLeave } from '../../slices/Leave/addleaveSlice';
 // import { useAuth } from '../../AuthContext';
+// import { jwtDecode } from 'jwt-decode';
 
 // function AddLeave() {
 //   const dispatch = useDispatch();
 //   const { user } = useAuth();
-//   const leaves = useSelector((state) => state.leave.users);
-//   const status = useSelector((state) => state.leave.status);
-//   const error = useSelector((state) => state.leave.error);
+//   const status = useSelector((state) => state.addleave.status);
+//   const error = useSelector((state) => state.addleave.error);
+//   const fetchedUserData = useSelector((state) => state.addleave.users); // Update to use addleave slice
 
 //   const [leaveData, setLeaveData] = useState({
 //     leaveType: '',
@@ -23,15 +24,15 @@
 //     isRejected: true,
 //   });
 
-//   const [userLeaveData, setUserLeaveData] = useState({
-//     userId: 0,
-//   });
-
-//   const [fetchedUserData, setFetchedUserData] = useState(null); // Add this line
+//   const token = localStorage.getItem('token');
+//   const userIdFromToken = jwtDecode(token).UserId;
 
 //   useEffect(() => {
-//     dispatch(fetchUserLeave());
-//   }, [dispatch]);
+//     // Fetch user leave data for the logged-in user
+//     if (userIdFromToken) {
+//       dispatch(fetchUserLeave(userIdFromToken));
+//     }
+//   }, [dispatch, userIdFromToken]);
 
 //   const handleInputChange = (e) => {
 //     const { name, value } = e.target;
@@ -39,34 +40,16 @@
 //   };
 
 //   const handleSubmit = () => {
+//     // Create leave for the logged-in user
 //     dispatch(createLeave(leaveData));
 //   };
 
-//   const handleUserInputChange = (e) => {
-//     const { name, value } = e.target;
-//     setUserLeaveData({ ...userLeaveData, [name]: value });
-//   };
-
-//   const handleFetchUserLeave = async () => {
-//     try {
-//       if (!userLeaveData.userId) {
-//         console.error('Invalid userId');
-//         return;
-//       }
-
-//       console.log('Fetching user leave for userId:', userLeaveData.userId);
-
-//       const result = await dispatch(fetchUserLeave(userLeaveData.userId));
-
-//       if (fetchUserLeave.fulfilled.match(result)) {
-//         const stringifiedData = JSON.stringify(result.payload);
-//         console.log('User Leave Data (Stringified):', stringifiedData);
-//         setFetchedUserData(result.payload); // Add this line
-//       } else if (fetchUserLeave.rejected.match(result)) {
-//         console.error('Failed to fetch user leave:', result.error.message);
-//       }
-//     } catch (error) {
-//       console.error('Unexpected error:', error.message);
+//   const handleFetchUserLeave = () => {
+//     // The dispatch function returns a Promise, so we can't directly use the result
+//     // Instead, rely on the state to check if the data is loaded
+//     if (userIdFromToken) {
+//       // Fetch user leave data for the logged-in user
+//       dispatch(fetchUserLeave(userIdFromToken));
 //     }
 //   };
 
@@ -80,6 +63,8 @@
 
 //   return (
 //     <div>
+     
+      
 //       <h2>Insert Leave</h2>
 //       <form>
 //         <label>Leave Type:</label>
@@ -90,10 +75,11 @@
 //         <input type="datetime-local" name="endLeaveDate" value={leaveData.endLeaveDate} onChange={handleInputChange} />
 //         <label>Reason:</label>
 //         <input type="text" name="reason" value={leaveData.reason} onChange={handleInputChange} />
-//         <button type="button" onClick={handleSubmit}>
-//           Submit Leave
-//         </button>
 //       </form>
+//       <button type="button" onClick={handleSubmit}>
+//         Submit Leave
+//       </button>
+
 //       <h2>Fetch User Leave</h2>
 //       <form>
 //         {fetchedUserData && (
@@ -102,13 +88,6 @@
 //             <pre>{JSON.stringify(fetchedUserData, null, 2)}</pre>
 //           </div>
 //         )}
-//         <label>User ID:</label>
-//         <input
-//           type="number"
-//           name="userId"
-//           value={userLeaveData.userId}
-//           onChange={handleUserInputChange}
-//         />
 //         <button type="button" onClick={handleFetchUserLeave}>
 //           Fetch User Leave
 //         </button>
@@ -127,18 +106,38 @@
 
 
 
-// src/component/insertLeave/AddLeave.js
+
+
+
+
+
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createLeave, fetchUserLeave } from '../../slices/Leave/addleaveSlice';
 import { useAuth } from '../../AuthContext';
+import { jwtDecode } from 'jwt-decode';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  TextField,
+  Button,
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
+} from '@mui/material'
 
 function AddLeave() {
   const dispatch = useDispatch();
   const { user } = useAuth();
-  const leaves = useSelector((state) => state.leave.users);
-  const status = useSelector((state) => state.leave.status);
-  const error = useSelector((state) => state.leave.error);
+  const status = useSelector((state) => state.addleave.status);
+  const error = useSelector((state) => state.addleave.error);
+  const fetchedUserData = useSelector((state) => state.addleave.users);
 
   const [leaveData, setLeaveData] = useState({
     leaveType: '',
@@ -149,12 +148,14 @@ function AddLeave() {
     isRejected: true,
   });
 
+  const token = localStorage.getItem('token');
+  const userIdFromToken = jwtDecode(token).UserId;
+
   useEffect(() => {
-    // Fetch user leave data for the logged-in user
-    if (leaves && leaves.userId) {
-      dispatch(fetchUserLeave(leaves.userId));
+    if (userIdFromToken) {
+      dispatch(fetchUserLeave(userIdFromToken));
     }
-  }, [dispatch, leaves]);
+  }, [dispatch, userIdFromToken]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -162,44 +163,100 @@ function AddLeave() {
   };
 
   const handleSubmit = () => {
-    // Create leave for the logged-in user
     dispatch(createLeave(leaveData));
   };
 
-  if (status === 'loading') {
-    return <div>Loading...</div>;
-  }
-
-  if (status === 'failed') {
-    return <div>Error: {error}</div>;
-  }
+  const handleFetchUserLeave = () => {
+    if (userIdFromToken) {
+      dispatch(fetchUserLeave(userIdFromToken));
+    }
+  };
 
   return (
     <div>
       <h2>Insert Leave</h2>
       <form>
         <label>Leave Type:</label>
-        <input type="text" name="leaveType" value={leaveData.leaveType} onChange={handleInputChange} />
+        {/* Use Material-UI Select component for the leave type menu */}
+        <FormControl fullWidth>
+          <InputLabel id="leave-type-label">Leave Type</InputLabel>
+          <Select
+            labelId="leave-type-label"
+            id="leave-type"
+            name="leaveType"
+            value={leaveData.leaveType}
+            onChange={handleInputChange}
+          >
+            <MenuItem value="FullDay">Full Day</MenuItem>
+            <MenuItem value="FirstHalf">First Half</MenuItem>
+            <MenuItem value="SecondHalf">Second Half</MenuItem>
+            <MenuItem value="EarlyLeave">Early Leave</MenuItem>
+            <MenuItem value="LateComing">Late Coming</MenuItem>
+            <MenuItem value="PersonalBreak">Personal Break</MenuItem>
+            <MenuItem value="OfficialBreak">Official Break</MenuItem>
+          </Select>
+        </FormControl>
         <label>Start Leave Date:</label>
-        <input type="datetime-local" name="startLeaveDate" value={leaveData.startLeaveDate} onChange={handleInputChange} />
+        <TextField
+          type="datetime-local"
+          name="startLeaveDate"
+          value={leaveData.startLeaveDate}
+          onChange={handleInputChange}
+          fullWidth
+        />
         <label>End Leave Date:</label>
-        <input type="datetime-local" name="endLeaveDate" value={leaveData.endLeaveDate} onChange={handleInputChange} />
+        <TextField
+          type="datetime-local"
+          name="endLeaveDate"
+          value={leaveData.endLeaveDate}
+          onChange={handleInputChange}
+          fullWidth
+        />
         <label>Reason:</label>
-        <input type="text" name="reason" value={leaveData.reason} onChange={handleInputChange} />
-        <button type="button" onClick={handleSubmit}>
-          Submit Leave
-        </button>
+        <TextField
+          type="text"
+          name="reason"
+          value={leaveData.reason}
+          onChange={handleInputChange}
+          fullWidth
+        />
       </form>
-      <h2>Fetched User Data</h2>
-      {leaves && (
-        <div>
-          <pre>{JSON.stringify(leaves, null, 2)}</pre>
-        </div>
-      )}
+      <Button type="button" variant="contained" color="primary" onClick={handleSubmit}>
+        Submit Leave
+      </Button>
+
+      <h2>Fetch User Leave</h2>
+      <form>
+        {fetchedUserData && (
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Leave Type</TableCell>
+                  <TableCell>Start Date</TableCell>
+                  <TableCell>End Date</TableCell>
+                  <TableCell>Reason</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {fetchedUserData.map((leave) => (
+                  <TableRow key={leave.id}>
+                    <TableCell>{leave.leaveType}</TableCell>
+                    <TableCell>{leave.startLeaveDate}</TableCell>
+                    <TableCell>{leave.endLeaveDate}</TableCell>
+                    <TableCell>{leave.reason}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
+        <Button type="button" variant="contained" color="primary" onClick={handleFetchUserLeave}>
+          Fetch User Leave
+        </Button>
+      </form>
     </div>
   );
 }
 
 export default AddLeave;
-
-

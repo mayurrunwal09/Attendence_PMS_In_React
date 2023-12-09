@@ -40,12 +40,13 @@ export const fetchUserLeave = createAsyncThunk('report/fetchDataById', async (_,
         Authorization: `Bearer ${token}`,
       },
     });
-
+    console.log(response)
     if (!response.ok) {
       throw new Error(`Failed to fetch report data: ${response.status}`);
     }
 
     const data = await response.json();
+    console.log(data)
 
     if (!data) {
       throw new Error('Invalid response data');

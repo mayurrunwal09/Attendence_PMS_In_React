@@ -9,12 +9,22 @@ import UserTypeList from './UserTypeList';
 import Leave from './Leave';
 import Report from './Report';
 import AddLeave from './InsertLeave/AddLeave'
+import ClockInButton from './ClockInButton';
+import ClockOutButton from './ClockOutButton';
+import StartBreak from './StartBreak';
+import EndBreak from './EndBreak';
 
 
 function Home() {
   return (
     <div>
+       
+
       <nav>
+      <ClockInButton />
+        <ClockOutButton/>
+        <StartBreak/>
+        <EndBreak/>
         <ul>
           <li>
             <Link to="/">Home</Link>
@@ -41,6 +51,7 @@ function Home() {
         </ul>
       </nav>
       <Outlet />
+    
     </div>
   );
 }

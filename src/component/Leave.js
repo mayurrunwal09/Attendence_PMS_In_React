@@ -182,12 +182,14 @@ import {
   approvedLeave,
   fetchUserLeave,
 } from '../slices/Leave/leaveSlice';
+ 
 
 function Leave() {
   const dispatch = useDispatch();
   const leaves = useSelector((state) => state.leave.users);
   const status = useSelector((state) => state.leave.status);
   const error = useSelector((state) => state.leave.error);
+  
 
   const [leaveData, setLeaveData] = useState({
     userId: 0,
@@ -257,7 +259,7 @@ function Leave() {
         }
       } catch (error) {
         // Handle unexpected errors
-        console.error('Unexpected error:', error.message);
+        console.error('Unexpected error');
       }
     } else {
       console.error('Invalid userId');

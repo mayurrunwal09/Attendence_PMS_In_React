@@ -113,11 +113,18 @@
 
 
 
+
+
+
+
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Button,
   TextField,
+  Card,
+  CardContent,
+  Typography,
   Table,
   TableBody,
   TableCell,
@@ -125,7 +132,6 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Typography,
 } from '@mui/material';
 
 import {
@@ -238,18 +244,22 @@ function UserTypeList() {
               <TableRow key={user.id}>
                 <TableCell>{user.id}</TableCell>
                 <TableCell>
-                  {editMode && editId === user.id ? (
-                    <TextField
-                      label="Type Name"
-                      type="text"
-                      name="typeName"
-                      value={userTypeData.typeName}
-                      onChange={handleInputChange}
-                      variant="outlined"
-                    />
-                  ) : (
-                    user.typeName
-                  )}
+                  <Card>
+                    <CardContent>
+                      {editMode && editId === user.id ? (
+                        <TextField
+                          label="Type Name"
+                          type="text"
+                          name="typeName"
+                          value={userTypeData.typeName}
+                          onChange={handleInputChange}
+                          variant="outlined"
+                        />
+                      ) : (
+                        user.typeName
+                      )}
+                    </CardContent>
+                  </Card>
                 </TableCell>
                 <TableCell>
                   {editMode && editId === user.id ? (
