@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { Button, CircularProgress } from '@mui/material';
+import { IconButton, CircularProgress } from '@mui/material';
+import { Alarm, AlarmOff } from '@mui/icons-material';
 import { jwtDecode } from 'jwt-decode';
 
 const ClockInOutButtons = () => {
   const [isClockInClicked, setClockInClicked] = useState(false);
   const [isClockInLoading, setClockInLoading] = useState(false);
 
-  const handleClockIn = async () => {
+  const handleClockButtonClick = async () => {
     try {
       const token = localStorage.getItem('token');
       const userIdFromToken = jwtDecode(token).UserId;
@@ -18,7 +19,11 @@ const ClockInOutButtons = () => {
 
       setClockInLoading(true);
 
-      const response = await fetch('https://localhost:44369/api/Attendence/ClockIn', {
+      const endpoint = isClockInClicked
+        ? 'https://localhost:44369/api/ClockOut/InserClockOut'
+        : 'https://localhost:44369/api/Attendence/ClockIn';
+
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -26,14 +31,15 @@ const ClockInOutButtons = () => {
         body: JSON.stringify({
           userId: userIdFromToken,
           checkInTime: new Date().toISOString(),
+        
         }),
       });
 
       if (response.ok) {
-        console.log('Clock In successful');
-        setClockInClicked(true);
+        console.log(isClockInClicked ? 'Clock Out successful' : 'Clock In successful');
+        setClockInClicked(!isClockInClicked);
       } else {
-        console.error('Clock In failed');
+        console.error(isClockInClicked ? 'Clock Out failed' : 'Clock In failed');
       }
     } catch (error) {
       console.error('Unexpected error:', error.message);
@@ -41,63 +47,35 @@ const ClockInOutButtons = () => {
       setClockInLoading(false);
     }
   };
-
-  const handleClockOut = async () => {
-    // Similar logic as Clock In, adjust the API endpoint as needed
-    try {
-      const token = localStorage.getItem('token');
-      const userIdFromToken = jwtDecode(token).UserId;
-
-      if (!userIdFromToken) {
-        console.error('Invalid user id from token');
-        return;
-      }
-
-      const response = await fetch('https://localhost:44369/api/ClockOut/InserClockOut', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userId: userIdFromToken,
-          checkInTime: new Date().toISOString(),
-        }),
-      });
-
-      if (response.ok) {
-        console.log('Clock Out successful');
-        // Additional actions upon successful Clock Out
-      } else {
-        console.error('Clock Out failed');
-      }
-    } catch (error) {
-      console.error('Unexpected error:', error.message);
-    }
+  const clockButtonStyle = {
+    backgroundColor: '#1976D2', // Adjust this color to match your app's color scheme
+    color: '#FFFFFF', // Text color, adjust as needed
+    marginRight: '10px', // Adjust the spacing from the Logout button
   };
-
   return (
     <div>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleClockIn}
-        disabled={isClockInClicked || isClockInLoading}
+      <IconButton
+       // color="success"
+        onClick={handleClockButtonClick}
+        disabled={isClockInLoading}
+        style={clockButtonStyle}
       >
-        {isClockInLoading ? <CircularProgress size={24} color="inherit" /> : 'Clock In'}
-      </Button>
-
-      {isClockInClicked && (
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleClockOut}
-          disabled={/* Add your condition for disabling Clock Out button */ false}
-        >
-          Clock Out
-        </Button>
-      )}
+        {isClockInLoading ? (
+          <CircularProgress size={24} color="inherit" />
+        ) : isClockInClicked ? (
+          <AlarmOff />
+        ) : (
+          <Alarm />
+        )}
+      </IconButton>
     </div>
   );
 };
 
 export default ClockInOutButtons;
+
+
+
+
+
+

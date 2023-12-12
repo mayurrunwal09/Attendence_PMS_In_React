@@ -117,6 +117,14 @@
 
 
 
+
+
+
+
+
+
+
+
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -132,6 +140,8 @@ import {
   TableHead,
   TableRow,
   Paper,
+  FormControl,
+  Grid,
 } from '@mui/material';
 
 import {
@@ -205,29 +215,36 @@ function UserTypeList() {
       </Typography>
 
       <form style={{ marginBottom: '20px' }}>
-        <TextField
-          label="Type Name"
-          type="text"
-          name="typeName"
-          value={userTypeData.typeName}
-          onChange={handleInputChange}
-          variant="outlined"
-          margin="normal"
-        />
-        {editMode ? (
-          <>
-            <Button variant="contained" color="primary" onClick={handleUpdate} style={{ marginLeft: '10px' }}>
-              Update
-            </Button>
-            <Button variant="contained" color="secondary" onClick={clearForm} style={{ marginLeft: '10px' }}>
-              Cancel
-            </Button>
-          </>
-        ) : (
-          <Button variant="contained" color="primary" onClick={handleInsert} style={{ marginLeft: '10px' }}>
-            Insert
-          </Button>
-        )}
+        <Grid container spacing={2}>
+          <Grid item xs={6}>
+            <FormControl fullWidth>
+              <TextField
+                label="Type Name"
+                type="text"
+                name="typeName"
+                value={userTypeData.typeName}
+                onChange={handleInputChange}
+                variant="outlined"
+              />
+            </FormControl>
+          </Grid>
+          <Grid item xs={6}>
+            {editMode ? (
+              <>
+                <Button variant="contained" color="primary" onClick={handleUpdate}>
+                  Save
+                </Button>
+                <Button variant="contained" color="secondary" onClick={clearForm}>
+                  Cancel
+                </Button>
+              </>
+            ) : (
+              <Button variant="contained" color="primary" onClick={handleInsert}>
+                Insert
+              </Button>
+            )}
+          </Grid>
+        </Grid>
       </form>
 
       <TableContainer component={Paper}>

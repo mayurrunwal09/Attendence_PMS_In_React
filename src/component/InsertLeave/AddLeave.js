@@ -177,7 +177,7 @@ function AddLeave() {
       <h2>Insert Leave</h2>
       <form>
         <label>Leave Type:</label>
-        {/* Use Material-UI Select component for the leave type menu */}
+     
         <FormControl fullWidth>
           <InputLabel id="leave-type-label">Leave Type</InputLabel>
           <Select

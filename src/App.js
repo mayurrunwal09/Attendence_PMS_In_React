@@ -3,10 +3,12 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './AuthContext';
 import Login from './Login';
-import Home, { UserList, UserTypeList, Leave,AddLeave,Report } from './component/Home'; // Corrected import
+import Home, { UserList, UserTypeList, Leave,AddLeave,Report, Attendence, UserReport } from './component/Home'; // Corrected import
 
 import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
+import UserProfile from './component/userProfile';
+
 
 const App = () => {
   return (
@@ -21,7 +23,9 @@ const App = () => {
             <Route path="usertypelist" element={<UserTypeList />} />
             <Route path="leave" element={<Leave />} />
             <Route path="Applyleave" element={<AddLeave />} />
-            <Route path="Report" element={<Report />} />
+            <Route path="Report" element={<Attendence />} />
+            <Route path="UserReport" element={<UserReport />} />
+            <Route path="UserProfile" element={<UserProfile />} />
           </Route>
         </Routes>
       </AuthProvider>
@@ -45,33 +49,3 @@ export default App;
 
 
 
-
-// // src/App.js
-// import React from 'react';
-// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-// import { AuthProvider } from './AuthContext';
-// import Login from './Login';
-// // import Home from './component/Home';
-// import Register from './Register';
-// import ProtectedRoute from './ProtectedRoute';
-
-// // Import the components correctly
-// import Home, { UserList, UserTypeList, Leave, AddLeave, Report } from './component/Home';
-
-// const App = () => {
-//   return (
-//     <Router>
-//       <AuthProvider>
-//         <Routes>
-//           <Route path="/login" element={<Login />} />
-//           <Route path="/register" element={<Register />} />
-//           <Route path="/" element={<ProtectedRoute />}>
-//             <Route path="/Home" element={<Home />} />
-//           </Route>
-//         </Routes>
-//       </AuthProvider>
-//     </Router>
-//   );
-// };
-
-// export default App;

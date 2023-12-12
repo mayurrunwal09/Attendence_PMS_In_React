@@ -39,7 +39,7 @@ export const updateUser = createAsyncThunk('users/updateUser', async (userTypeDa
 export const deleteUser = createAsyncThunk('userTypes/deleteUser', async (id,{getState}) => {
   const token = getState().auth.token;
   const response = await fetch(`https://localhost:44369/api/User/DeleteUser?Id=${id}`, {
-  
+
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -47,11 +47,22 @@ export const deleteUser = createAsyncThunk('userTypes/deleteUser', async (id,{ge
     },
   });
   const data = await response.json();
+ 
   return data;
 });
 
 
-
+export const fetchUserTypeById = createAsyncThunk('users/fetchUserTypeById', async (userId, { getState }) => {
+  const token = getState().auth.token;
+  const response = await fetch(`https://localhost:44369/api/User/GetUser?Id=${userId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const data = await response.json();
+  console.log(data);
+  return data;
+});
 
 
 
@@ -63,6 +74,7 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+    
       .addCase(fetchUsers.pending, (state) => {
         state.status = 'loading';
       })
