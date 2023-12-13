@@ -236,6 +236,7 @@ function AddLeave() {
                   <TableCell>Start Date</TableCell>
                   <TableCell>End Date</TableCell>
                   <TableCell>Reason</TableCell>
+                  <TableCell>Approval Status</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -245,6 +246,7 @@ function AddLeave() {
                     <TableCell>{leave.startLeaveDate}</TableCell>
                     <TableCell>{leave.endLeaveDate}</TableCell>
                     <TableCell>{leave.reason}</TableCell>
+                    <TableCell>{leave.approvalStatus}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

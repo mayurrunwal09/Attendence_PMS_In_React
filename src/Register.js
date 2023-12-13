@@ -1,6 +1,15 @@
+
 // import React, { useState } from 'react';
 // import axios from 'axios';
 // import { Link } from 'react-router-dom';
+// import {
+//   Button,
+//   TextField,
+//   Typography,
+//   Paper,
+//   Container,
+//   Grid,
+// } from '@mui/material';
 
 // const Register = () => {
 //   const [userModel, setUserModel] = useState({
@@ -80,89 +89,118 @@
 //   };
 
 //   return (
-//     <div>
-//       <h2>Register</h2>
-//       {registrationSuccess && <p style={{ color: 'green' }}>Registration done successfully!</p>}
-//       <div>
-//         <label>Username:</label>
-//         <input
-//           type="text"
-//           name="userName"
-//           value={userModel.userName}
-//           onChange={handleInputChange}
-//         />
-//         <span style={{ color: 'red' }}>{errors.userName}</span>
-//       </div>
-//       <div>
-//         <label>Password:</label>
-//         <input
-//           type="password"
-//           name="password"
-//           value={userModel.password}
-//           onChange={handleInputChange}
-//         />
-//         <span style={{ color: 'red' }}>{errors.password}</span>
-//       </div>
-//       <div>
-//         <label>Email:</label>
-//         <input
-//           type="text"
-//           name="email"
-//           value={userModel.email}
-//           onChange={handleInputChange}
-//         />
-//         <span style={{ color: 'red' }}>{errors.email}</span>
-//       </div>
-//       <div>
-//         <label>Mobile Number:</label>
-//         <input
-//           type="text"
-//           name="mobileNo"
-//           value={userModel.mobileNo}
-//           onChange={handleInputChange}
-//         />
-//         <span style={{ color: 'red' }}>{errors.mobileNo}</span>
-//       </div>
-//       <div>
-//         <label>City:</label>
-//         <input
-//           type="text"
-//           name="city"
-//           value={userModel.city}
-//           onChange={handleInputChange}
-//         />
-//         <span style={{ color: 'red' }}>{errors.city}</span>
-//       </div>
-//       <div>
-//         <label>UserType Id:</label>
-//         <input
-//           type="text"
-//           name="userTypeId"
-//           value={userModel.userTypeId}
-//           onChange={handleInputChange}
-//         />
-//         <span style={{ color: 'red' }}>{errors.userTypeId}</span>
-//       </div>
-//       <div>
-//         <label>User Role:</label>
-//         <input
-//           type="text"
-//           name="role"
-//           value={userModel.role}
-//           onChange={handleInputChange}
-//         />
-//         <span style={{ color: 'red' }}>{errors.role}</span>
-//       </div>
-//       {/* Add more input fields with validation as needed... */}
-//       <button onClick={handleRegister}>Register</button>
-//       <p>
-//         Already Login? <Link to="/login">Login here</Link>.
-//       </p>
-//     </div>
+//     <Container component="main" maxWidth="xs">
+//       <Paper elevation={3} style={{ padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+//         <Typography variant="h5" gutterBottom>
+//           Registration Form
+//         </Typography>
+//         {registrationSuccess && <Typography style={{ color: 'green' }}>Registration done successfully!</Typography>}
+//         <form>
+//           <Grid container spacing={2}>
+//             <Grid item xs={12}>
+//               <TextField
+//                 label="Username"
+//                 name="userName"
+//                 value={userModel.userName}
+//                 onChange={handleInputChange}
+//                 fullWidth
+//                 variant="outlined"
+//               />
+//               <Typography variant="body2" style={{ color: 'red' }}>{errors.userName}</Typography>
+//             </Grid>
+//             <Grid item xs={12}>
+//               <TextField
+//                 label="Password"
+//                 type="password"
+//                 name="password"
+//                 value={userModel.password}
+//                 onChange={handleInputChange}
+//                 fullWidth
+//                 variant="outlined"
+//               />
+//               <Typography variant="body2" style={{ color: 'red' }}>{errors.password}</Typography>
+//             </Grid>
+//             <Grid item xs={12}>
+//               <TextField
+//                 label="Email"
+//                 name="email"
+//                 value={userModel.email}
+//                 onChange={handleInputChange}
+//                 fullWidth
+//                 variant="outlined"
+//               />
+//               <Typography variant="body2" style={{ color: 'red' }}>{errors.email}</Typography>
+//             </Grid>
+//             <Grid item xs={12}>
+//               <TextField
+//                 label="Mobile Number"
+//                 name="mobileNo"
+//                 value={userModel.mobileNo}
+//                 onChange={handleInputChange}
+//                 fullWidth
+//                 variant="outlined"
+//               />
+//               <Typography variant="body2" style={{ color: 'red' }}>{errors.mobileNo}</Typography>
+//             </Grid>
+//             <Grid item xs={12}>
+//               <TextField
+//                 label="City"
+//                 name="city"
+//                 value={userModel.city}
+//                 onChange={handleInputChange}
+//                 fullWidth
+//                 variant="outlined"
+//               />
+//               <Typography variant="body2" style={{ color: 'red' }}>{errors.city}</Typography>
+//             </Grid>
+//             <Grid item xs={12}>
+//               <TextField
+//                 label="UserType Id"
+//                 name="userTypeId"
+//                 value={userModel.userTypeId}
+//                 onChange={handleInputChange}
+//                 fullWidth
+//                 variant="outlined"
+//               />
+//               <Typography variant="body2" style={{ color: 'red' }}>{errors.userTypeId}</Typography>
+//             </Grid>
+//             <Grid item xs={12}>
+//               <TextField
+//                 label="User Role"
+//                 name="role"
+//                 value={userModel.role}
+//                 onChange={handleInputChange}
+//                 fullWidth
+//                 variant="outlined"
+//               />
+//               <Typography variant="body2" style={{ color: 'red' }}>{errors.role}</Typography>
+//             </Grid>
+//           </Grid>
+//           <Button
+//             type="button"
+//             fullWidth
+//             variant="contained"
+//             color="primary"
+//             onClick={handleRegister}
+//             style={{ marginTop: '20px' }}
+//           >
+//             Register
+//           </Button>
+//         </form>
+//         <Typography style={{ marginTop: '10px' }}>
+//           Already have an account? <Link to="/login">Login here</Link>.
+//         </Typography>
+//       </Paper>
+//     </Container>
 //   );
 // };
 
 // export default Register;
+
+
+
+
+
 
 
 
@@ -178,7 +216,7 @@ import {
   Typography,
   Paper,
   Container,
-  Grid,
+  Grid,MenuItem,Select,InputLabel,FormControl
 } from '@mui/material';
 
 const Register = () => {
@@ -243,20 +281,63 @@ const Register = () => {
     return formIsValid;
   };
 
+  // const handleRegister = async () => {
+  //   try {
+  //     if (validateForm()) {
+  //       // Assuming userTypeId is selected from the dropdown
+  //       if (userModel.userTypeId === '1' || userModel.userTypeId === '2') {
+  //         // Handle registration for Admin (userTypeId 1)
+  //         await axios.post('https://localhost:44369/api/Login/Register', userModel);
+  //       } 
+      
+  //       // Assuming backend responds with a success status
+  //       setRegistrationSuccess(true);
+
+  //       // Redirect or perform any action after successful registration
+  //     }
+  //   } catch (error) {
+  //     console.error('Registration failed:', error);
+  //   }
+  // };
+
+
   const handleRegister = async () => {
     try {
       if (validateForm()) {
-        await axios.post('https://localhost:44369/api/Login/Register', userModel);
-
-        // Assuming backend responds with a success status
-        setRegistrationSuccess(true);
-
-        // Redirect or perform any action after successful registration
+        // Assuming userTypeId is selected from the dropdown
+        if (userModel.userTypeId === '1' || userModel.userTypeId === '2') {
+          const response = await axios.post('https://localhost:44369/api/Login/Register', userModel);
+  
+          if (response.data.success) {
+            // Registration successful
+            setRegistrationSuccess(true);
+            // Redirect or perform any action after successful registration
+          } else {
+            // Registration failed due to validation errors or existing username
+            if (response.data.errors) {
+              // Handle validation errors
+              setErrors({
+                ...errors,
+                ...response.data.errors.reduce((acc, error) => {
+                  acc[error.split(':')[0].toLowerCase()] = error.split(':')[1].trim();
+                  return acc;
+                }, {})
+              });
+            } else if (response.data.message) {
+              // Handle existing username error
+              setErrors({
+                ...errors,
+                userName: response.data.message
+              });
+            }
+          }
+        }
       }
     } catch (error) {
-      console.error('Registration failed:', error);
+      console.error('Registration failed:May be same Username exists', error);
     }
   };
+  
 
   return (
     <Container component="main" maxWidth="xs">
@@ -324,15 +405,19 @@ const Register = () => {
               <Typography variant="body2" style={{ color: 'red' }}>{errors.city}</Typography>
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                label="UserType Id"
-                name="userTypeId"
-                value={userModel.userTypeId}
-                onChange={handleInputChange}
-                fullWidth
-                variant="outlined"
-              />
-              <Typography variant="body2" style={{ color: 'red' }}>{errors.userTypeId}</Typography>
+              <FormControl fullWidth variant="outlined">
+                <InputLabel>User Type</InputLabel>
+                <Select
+                  label="User Type"
+                  name="userTypeId"
+                  value={userModel.userTypeId}
+                  onChange={handleInputChange}
+                >
+                  <MenuItem value="1">Admin</MenuItem>
+                  <MenuItem value="2">Employee</MenuItem>
+                </Select>
+                <Typography variant="body2" style={{ color: 'red' }}>{errors.userTypeId}</Typography>
+              </FormControl>
             </Grid>
             <Grid item xs={12}>
               <TextField

@@ -1,0 +1,83 @@
+/* Add this CSS to your global styles or component-specific stylesheet */
+
+/* Login page styles */
+.login-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    background-color: #ffffff; /* Attractive container background color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-top: 100px; /* Adjust as needed */
+}
+
+/* Avatar styles */
+.avatar {
+    margin: 8px;
+    background-color: #3498db; /* Avatar background color */
+}
+
+/* Heading styles */
+.login-container h1 {
+    color: #333333; /* Heading text color */
+    margin-bottom: 20px;
+}
+
+/* Error message styles */
+.login-container div {
+    color: #e74c3c; /* Error message text color */
+    margin-bottom: 10px;
+}
+
+/* Form styles */
+.login-container form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Text field styles */
+.login-container label {
+    color: #333333; /* Label text color */
+}
+
+.login-container input {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #3498db; /* Input border color */
+    border-radius: 4px;
+    background-color: #ecf0f1; /* Input background color */
+    color: #333333; /* Input text color */
+}
+
+/* Button styles */
+.login-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #3498db; /* Button background color */
+    color: #ffffff; /* Button text color */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-container button:hover {
+    background-color: #2980b9; /* Hover state color */
+}
+
+/* Link styles */
+.login-container a {
+    margin-top: 10px;
+    color: #3498db; /* Link text color */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.login-container a:hover {
+    color: #2980b9; /* Hover state color */
+}

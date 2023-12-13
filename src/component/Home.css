@@ -1,0 +1,302 @@
+src/component/Home.css
+
+/* General styles for the entire Home component */
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  /* Drawer styles */
+  .MuiDrawer-paper {
+    width: 240px;
+  }
+  
+  /* AppBar styles */
+  .MuiAppBar-root {
+    background-color: #2196f3; /* Change the background color as needed */
+  }
+  
+  /* Toolbar styles */
+  .MuiToolbar-root {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  /* MenuIcon styles */
+  .MuiIconButton-root {
+    margin-right: 12px;
+  }
+  
+  /* Typography styles for the app name */
+  .MuiTypography-h6 {
+    flex-grow: 1;
+    color: #fff; /* Text color */
+  }
+  
+  /* Icon button styles */
+  .MuiIconButton-root:last-child {
+    margin-left: 12px;
+  }
+  
+  /* Main content styles */
+  #main-content {
+    padding: 20px;
+  }
+  
+  /* Welcome message styles */
+  #main-content h2 {
+    color: #333; /* Text color */
+  }
+  
+  /* Link styles */
+  .MuiTypography-root.MuiLink-root {
+    color: #2196f3; /* Link color */
+    text-decoration: none;
+  }
+  
+  .MuiTypography-root.MuiLink-root:hover {
+    text-decoration: underline;
+  }
+  
+  /* User profile icon styles */
+  .MuiIconButton-root.MuiIconButton-colorInherit {
+    margin-left: 12px;
+  }
+  
+  /* Example clock-in and start break button styles */
+  #clock-in-button,
+  #start-break-button {
+    margin-top: 12px;
+  }
+  
+  /* Logout button styles */
+  #logout-button {
+    margin-top: 24px;
+  }
+  
+  /* Table styles */
+  .MuiTable-root {
+    margin-top: 24px;
+  }
+  
+  /* Table header styles */
+  .MuiTableHead-root {
+    background-color: #2196f3; /* Table header background color */
+  }
+  
+  /* Table header cell styles */
+  .MuiTableCell-head {
+    color: #fff; /* Table header text color */
+    font-weight: bold;
+  }
+  
+  /* Table body styles */
+  .MuiTableBody-root {
+    background-color: #f5f5f5; /* Table body background color */
+  }
+  
+  /* Table body cell styles */
+  .MuiTableCell-body {
+    font-size: 14px;
+  }
+  
+  /* ApplyLeave component styles */
+  #apply-leave-form {
+    margin-top: 24px;
+  }
+  
+  /* UserProfile component styles */
+  #user-profile-container {
+    margin-top: 24px;
+  }
+  /* styles.css */
+
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .drawer {
+    width: 240px;
+  }
+  
+  .drawer-paper {
+    width: 240px;
+    background-color: #2c3e50; /* Set your desired background color */
+    color: white;
+  }
+  
+  .drawer-header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #34495e; /* Set your desired header background color */
+  }
+  
+  .drawer-header h1 {
+    margin-left: 10px;
+  }
+  
+  .drawer-list {
+    padding: 0;
+  }
+  
+  .drawer-list-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+  
+  .drawer-list-item:hover {
+    background-color: #3e4a5a; /* Set your desired hover background color */
+  }
+  
+  .drawer-list-item svg {
+    margin-right: 10px;
+  }
+  
+  .drawer-content {
+    margin-left: 240px;
+    padding: 20px;
+  }
+  
+  .app-bar {
+    background-color: #34495e; 
+  }
+  
+  .app-bar-title {
+    flex-grow: 1;
+    margin-left: 20px;
+    color: white;
+  }
+  
+  .app-bar-icon {
+    margin-left: 20px;
+    color: white;
+  }
+  
+  .profile-icon {
+    margin-left: auto;
+  }
+  
+  /* Add any additional styles as needed */
+  /* Home.css */
+
+/* General styles for the entire Home component */
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  /* Drawer styles */
+  .MuiDrawer-paper {
+    width: 240px;
+    background-color: #2c3e50; /* Dark background color for drawer */
+    color: white;
+  }
+  
+  /* AppBar styles */
+  .MuiAppBar-root {
+    background-color: #34495e; /* Dark background color for app bar */
+  }
+  
+  /* Toolbar styles */
+  .MuiToolbar-root {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  /* MenuIcon styles */
+  .MuiIconButton-root {
+    margin-right: 12px;
+    color: white; /* Icon color */
+  }
+  
+  /* Typography styles for the app name */
+  .MuiTypography-h6 {
+    flex-grow: 1;
+    color: white; /* Text color */
+  }
+  
+  /* Icon button styles */
+  .MuiIconButton-root:last-child {
+    margin-left: 12px;
+    color: white; /* Icon color */
+  }
+  
+  /* Main content styles */
+  #main-content {
+    padding: 20px;
+  }
+  
+  /* Welcome message styles */
+  #main-content h2 {
+    color: #333; /* Text color */
+  }
+  
+  /* Link styles */
+  .MuiTypography-root.MuiLink-root {
+    color: #3498db; /* Link color */
+    text-decoration: none;
+  }
+  
+  .MuiTypography-root.MuiLink-root:hover {
+    text-decoration: underline;
+  }
+  
+  /* User profile icon styles */
+  .MuiIconButton-root.MuiIconButton-colorInherit {
+    margin-left: 12px;
+    color: white; /* Icon color */
+  }
+  
+  /* Example clock-in and start break button styles */
+  #clock-in-button,
+  #start-break-button {
+    margin-top: 12px;
+  }
+  
+  /* Logout button styles */
+  #logout-button {
+    margin-top: 24px;
+  }
+  
+  /* Table styles */
+  .MuiTable-root {
+    margin-top: 24px;
+  }
+  
+  /* Table header styles */
+  .MuiTableHead-root {
+    background-color: #3498db; /* Table header background color */
+  }
+  
+  /* Table header cell styles */
+  .MuiTableCell-head {
+    color: white; /* Table header text color */
+    font-weight: bold;
+  }
+  
+  /* Table body styles */
+  .MuiTableBody-root {
+    background-color: #f5f5f5; /* Table body background color */
+  }
+  
+  /* Table body cell styles */
+  .MuiTableCell-body {
+    font-size: 14px;
+  }
+  
+  /* ApplyLeave component styles */
+  #apply-leave-form {
+    margin-top: 24px;
+  }
+  
+  /* UserProfile component styles */
+  #user-profile-container {
+    margin-top: 24px;
+  }
+  

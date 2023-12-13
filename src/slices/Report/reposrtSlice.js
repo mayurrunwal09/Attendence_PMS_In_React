@@ -72,6 +72,46 @@ export const fetchUserBreakDuration = createAsyncThunk('report/fetchUserBreakDur
   }
 });
 
+
+
+
+
+
+export const fetchUserDataByUserId = createAsyncThunk('report/fetchUserDataByUserId', async (_, { getState }) => {
+  const token = getState().auth.token;
+  const userIdFromToken = jwtDecode(token).UserId;
+
+  try {
+    const response = await fetch(`https://localhost:44369/api/Report/DataByUserId?userId=${userIdFromToken}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(response);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch report data: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log(data)
+   
+
+    if (!data) {
+      throw new Error('Invalid response data');
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Fetch Report Data Error:', error.message);
+    throw new Error(`Failed to fetch report data: ${error.message}`);
+  }
+});
+
+
+
+
+
+
 const reportSlice = createSlice({
   name: 'report',
   initialState,

@@ -10,6 +10,7 @@ import { leaveReducer } from './slices/Leave/leaveSlice';
 import reposrtSlice from './slices/Report/reposrtSlice';
 import { reportReducer } from './slices/Report/reposrtSlice';
 import { addleaveReducer } from './slices/Leave/addleaveSlice';
+import eventSlice from './slices/Event/eventSlice';
 
 const store = configureStore({
   reducer: {
@@ -19,6 +20,7 @@ const store = configureStore({
     leave : leaveReducer,
     report : reportReducer,
     addleave : addleaveReducer,
+    events : eventSlice,
     // Add other reducers here if needed
   },
 });
