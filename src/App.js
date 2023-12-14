@@ -9,6 +9,8 @@ import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
 import UserProfile from './component/userProfile';
 import Logout from './Logout';
+import ResetPasswordComponent from './component/ResetPasswordComponent';
+
 
 
 const App = () => {
@@ -18,6 +20,7 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/reset" element={<ResetPasswordComponent />} />
           <Route path="/" element={<ProtectedRoute />}>
             <Route path="/Home" element={<Home />} />
             <Route path="userlist" element={<UserList />} />

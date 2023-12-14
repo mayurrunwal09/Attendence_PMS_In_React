@@ -281,41 +281,20 @@ const Register = () => {
     return formIsValid;
   };
 
-  // const handleRegister = async () => {
-  //   try {
-  //     if (validateForm()) {
-  //       // Assuming userTypeId is selected from the dropdown
-  //       if (userModel.userTypeId === '1' || userModel.userTypeId === '2') {
-  //         // Handle registration for Admin (userTypeId 1)
-  //         await axios.post('https://localhost:44369/api/Login/Register', userModel);
-  //       } 
-      
-  //       // Assuming backend responds with a success status
-  //       setRegistrationSuccess(true);
-
-  //       // Redirect or perform any action after successful registration
-  //     }
-  //   } catch (error) {
-  //     console.error('Registration failed:', error);
-  //   }
-  // };
-
-
   const handleRegister = async () => {
-    try {
+    try { 
       if (validateForm()) {
-        // Assuming userTypeId is selected from the dropdown
+     
         if (userModel.userTypeId === '1' || userModel.userTypeId === '2') {
           const response = await axios.post('https://localhost:44369/api/Login/Register', userModel);
   
           if (response.data.success) {
-            // Registration successful
             setRegistrationSuccess(true);
-            // Redirect or perform any action after successful registration
+            
           } else {
-            // Registration failed due to validation errors or existing username
+        
             if (response.data.errors) {
-              // Handle validation errors
+           
               setErrors({
                 ...errors,
                 ...response.data.errors.reduce((acc, error) => {
@@ -324,7 +303,7 @@ const Register = () => {
                 }, {})
               });
             } else if (response.data.message) {
-              // Handle existing username error
+           
               setErrors({
                 ...errors,
                 userName: response.data.message

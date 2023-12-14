@@ -170,8 +170,8 @@ const UserReport1 = () => {
               <TableCell>Start Break Times</TableCell>
               <TableCell>Finish Break Times</TableCell>
               <TableCell>Break Durations</TableCell>
-              <TableCell>Total Productive Hours</TableCell>
-              <TableCell>Total Hours</TableCell>
+              <TableCell>Productive TIme</TableCell>
+              <TableCell>Total Actual Time</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

@@ -1,8 +1,5 @@
 
 
-
-
-
   // // src/component/Home.js
   // import React, { useEffect, useState } from 'react';
   // import { Link, Outlet } from 'react-router-dom';
@@ -48,10 +45,24 @@
   // import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
   // import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
   // import { ThemeProvider, createTheme } from '@mui/material/styles';
+  // import MenuItem from '@mui/material/MenuItem';
+  // import Menu from '@mui/material/Menu';
+  // import AccountBoxIcon from '@mui/icons-material/AccountBox';
+
   // function Home() {
   //   const dispatch = useDispatch();
   //   const [drawerOpen, setDrawerOpen] = useState(false);
   //   const [fetchedData, setFetchedData] = useState(null);
+  //   const [anchorEl, setAnchorEl] = useState(null);
+
+
+  //   const handleMenuClick = (event) => {
+  //     setAnchorEl(event.currentTarget);
+  //   };
+  
+  //   const handleCloseMenu = () => {
+  //     setAnchorEl(null);
+  //   };
   //   const handleDrawerOpen = () => {
   //     setDrawerOpen(true);
   //   };
@@ -77,6 +88,7 @@
   //       },
   //     },
   //   });
+    
     
   //   return (
   //     <div style={{ display: 'flex', height: '100vh' }}>
@@ -118,7 +130,7 @@
   //             <ListItemText primary="Holidays" />
   //           </ListItem>
           
-  //           <Logout/>
+         
   //         </List>
   //       </Drawer>
 
@@ -126,7 +138,7 @@
   //       <ThemeProvider theme={darkTheme}>
   //       <AppBar position="static" color="primary" enableColorOnDark>
   //         <Toolbar>
-  //           <IconButton
+  //         <IconButton
   //             color="inherit"
   //             aria-label="open drawer"
   //             onClick={handleDrawerOpen}
@@ -135,21 +147,42 @@
   //           >
   //             <MenuIcon />
   //           </IconButton>
-  //           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-  //             Your App Name
-  //           </Typography>
-  //           <ClockInButton />
-  //           <br />
-  //           <StartBreak />
-              
-  //           <IconButton
+  //         <IconButton
   //             component={Link}
-  //             to="/UserProfile"
+              
   //             color="inherit"
+  //             aria-controls="profile-menu"
+  //             aria-haspopup="true"
+  //             onClick={handleMenuClick}
   //             sx={{ marginLeft: '2' }}
   //           >
   //             <AccountCircleIcon />
   //           </IconButton>
+  //           <Menu
+  //             id="profile-menu"
+  //             anchorEl={anchorEl}
+  //             anchorOrigin={{
+  //               vertical: 'top',
+  //               horizontal: 'left',
+  //             }}
+  //             keepMounted
+  //             transformOrigin={{
+  //               vertical: 'top',
+  //               horizontal: 'left ',
+  //             }}
+  //             open={Boolean(anchorEl)}
+  //             onClose={handleCloseMenu}
+  //           >
+  //             <MenuItem component={Link} to="/" onClick={handleCloseMenu}>
+  //               Home
+  //             </MenuItem>
+  //             <MenuItem component={Link} to="/UserProfile" onClick={handleCloseMenu}>
+  //               View Profile
+  //             </MenuItem>
+  //             <MenuItem component={Link} to="/logout" onClick={handleCloseMenu}>
+  //               Logout
+  //             </MenuItem>
+  //           </Menu>
   //         </Toolbar>
   //       </AppBar>
   //       </ThemeProvider>
@@ -169,8 +202,6 @@
 
 
 
-
- 
 
 
 
@@ -224,6 +255,9 @@
   import MenuItem from '@mui/material/MenuItem';
   import Menu from '@mui/material/Menu';
   import AccountBoxIcon from '@mui/icons-material/AccountBox';
+ 
+  import BreakManagement from './StartBreak';
+  import ClockInOutButtons from './ClockInButton';
 
   function Home() {
     const dispatch = useDispatch();
@@ -323,6 +357,11 @@
             >
               <MenuIcon />
             </IconButton>
+            
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+                <ClockInOutButtons />
+                <BreakManagement />
+              </div>
           <IconButton
               component={Link}
               

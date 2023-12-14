@@ -64,7 +64,19 @@ export const fetchUserTypeById = createAsyncThunk('users/fetchUserTypeById', asy
   return data;
 });
 
-
+export const ResetPassword = createAsyncThunk('users/ResetPassword', async (userTypeData,{ getState}) => {
+  const token = getState().auth.token;
+  const response = await fetch('https://localhost:44369/api/User/ResetPassword', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(userTypeData),
+  });
+  const data = await response.json();
+  return data;
+});
 
 
 // Create a slice

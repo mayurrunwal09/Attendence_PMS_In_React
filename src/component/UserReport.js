@@ -112,8 +112,8 @@ const UserReport = () => {
                 <TableCell>Start Break Time</TableCell>
                 <TableCell>Finish Break Time</TableCell>
                 <TableCell>Break Duration</TableCell>
-                <TableCell>Productive Hours</TableCell>
-                <TableCell>Total Hours</TableCell>
+                <TableCell>Productive TIme</TableCell>
+                <TableCell>Total Time</TableCell>
                 {/* <TableCell>Productive Hours</TableCell> */}
               </TableRow>
             </TableHead>

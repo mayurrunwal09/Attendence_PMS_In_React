@@ -239,6 +239,10 @@ const Login = () => {
             <MuiLink component={Link} to="/register" variant="body2">
               Don't have an account? Register here
             </MuiLink>
+            <br></br>
+            <MuiLink component={Link} to="/reset" variant="body2">
+              Forgot Password
+            </MuiLink>
           </Grid>
         </Grid>
       </Paper>

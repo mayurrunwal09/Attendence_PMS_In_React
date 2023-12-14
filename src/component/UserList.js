@@ -191,7 +191,7 @@ function UserList() {
               <TableCell>City</TableCell>
               <TableCell>Email</TableCell>
               <TableCell>Password</TableCell>
-              <TableCell>UserType Id</TableCell>
+              <TableCell>UserType Name</TableCell>
               <TableCell>Role</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
@@ -269,13 +269,13 @@ function UserList() {
                   {editingUserId === user.id ? (
                     <TextField
                       type="text"
-                      value={editedUserData.userTypeId}
+                      value={editedUserData.typeName}
                       onChange={(e) =>
-                        setEditedUserData({ ...editedUserData, userTypeId: e.target.value })
+                        setEditedUserData({ ...editedUserData, typeName: e.target.value })
                       }
                     />
                   ) : (
-                    user.userTypeId
+                    user.typeName
                   )}
                 </TableCell>
                 <TableCell>
