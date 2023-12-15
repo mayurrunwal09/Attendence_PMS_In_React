@@ -244,6 +244,8 @@
   import AccountCircleIcon from '@mui/icons-material/AccountCircle';
   import UserReport1 from './UserReport1';
   import Event from './Event';
+  import Session from './Session';
+  import UserSession from './UserSession';
   import './Home.css'; // Correct path and file name
   import ReportIcon from '@mui/icons-material/Report';
   import CoPresentIcon from '@mui/icons-material/CoPresent';
@@ -255,10 +257,11 @@
   import MenuItem from '@mui/material/MenuItem';
   import Menu from '@mui/material/Menu';
   import AccountBoxIcon from '@mui/icons-material/AccountBox';
- 
+  import EventNoteIcon from '@mui/icons-material/EventNote';
   import BreakManagement from './StartBreak';
   import ClockInOutButtons from './ClockInButton';
-
+  import ManualRequestList from './ManualRequestList';
+  import ManualRequest from './ManualRequest'
   function Home() {
     const dispatch = useDispatch();
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -339,7 +342,22 @@
               <EventAvailableIcon />
               <ListItemText primary="Holidays" />
             </ListItem>
-          
+            <ListItem button component={Link} to="/Sessions">
+              <EventNoteIcon />
+              <ListItemText primary="EventList for Admin" />
+            </ListItem>
+            <ListItem button component={Link} to="/UserSessions">
+              <EventNoteIcon />
+              <ListItemText primary="Event" />
+            </ListItem>
+            <ListItem button component={Link} to="/ManualRequest">
+              <EventNoteIcon />
+              <ListItemText primary="ManualRequest" />
+            </ListItem>
+            <ListItem button component={Link} to="/InsertRequest">
+              <EventNoteIcon />
+              <ListItemText primary="InsertManuralRequest" />
+            </ListItem>
          
           </List>
         </Drawer>
@@ -412,7 +430,8 @@
   }
 
   export default Home;
-  export { UserList, UserTypeList, Leave, AddLeave, Attendence,UserReport,UserReport1,Event};
+  export { UserList, UserTypeList, Leave, AddLeave, Attendence,
+    UserReport,UserReport1,Event,Session,UserSession,ManualRequestList,ManualRequest};
 
 
 

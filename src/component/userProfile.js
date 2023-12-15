@@ -43,6 +43,7 @@ const UserProfile = () => {
         password: fetchedData.password,
         userTypeId: fetchedData.userTypeId,
         role: fetchedData.role,
+        typeName: fetchedData.typeName,
       }));
       setIsEditing(false);
     } catch (error) {
@@ -168,6 +169,19 @@ const UserProfile = () => {
                     </TableCell>
                   ) : (
                     <TableCell>{fetchedData.role}</TableCell>
+                  )}
+                </TableRow>
+                <TableRow>
+                  <TableCell>User Type Name</TableCell>
+                  {isEditing ? (
+                    <TableCell>
+                      <TextField
+                        value={fetchedData.typeName}
+                        onChange={(e) => handleInputChange('typeName', e.target.value)}
+                      />
+                    </TableCell>
+                  ) : (
+                    <TableCell>{fetchedData.typeName}</TableCell>
                   )}
                 </TableRow>
               </TableBody>
