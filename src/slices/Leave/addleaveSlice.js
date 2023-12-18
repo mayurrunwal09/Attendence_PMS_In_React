@@ -15,7 +15,7 @@ export const createLeave = createAsyncThunk('leaves/createLeave', async (leaveDa
   const userIdFromToken = jwtDecode(token).UserId;
   leaveData.userId = userIdFromToken;
   try {
-    const response = await fetch('https://localhost:44369/api/Leave/ApplyLeave', {
+    const response = await fetch('https://localhost:7046/api/Leave/ApplyLeave', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -35,7 +35,7 @@ export const fetchUserLeave = createAsyncThunk('report/fetchDataById', async (_,
   const userIdFromToken = jwtDecode(token).UserId;
 
   try {
-    const response = await fetch(`https://localhost:44369/api/Leave/GetLeaveByUserId?userId=${userIdFromToken}`, {
+    const response = await fetch(`https://localhost:7046/api/Leave/GetLeaveByUserId?userId=${userIdFromToken}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -62,7 +62,7 @@ export const fetchUserLeave = createAsyncThunk('report/fetchDataById', async (_,
 
 export const deleteLeave = createAsyncThunk('leaves/deleteLeave', async (id, { getState }) => {
   const token = getState().auth.token;
-  const response = await fetch(`https://localhost:44369/api/Leave/DeleteLeave?Id=${id}`, {
+  const response = await fetch(`https://localhost:7046/api/Leave/DeleteLeave?Id=${id}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${token}`,

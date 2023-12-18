@@ -352,7 +352,7 @@
             </ListItem>
             <ListItem button component={Link} to="/ManualRequest">
               <EventNoteIcon />
-              <ListItemText primary="ManualRequest" />
+              <ListItemText primary="ManualRequestList" />
             </ListItem>
             <ListItem button component={Link} to="/InsertRequest">
               <EventNoteIcon />

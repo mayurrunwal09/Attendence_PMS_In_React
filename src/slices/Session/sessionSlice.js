@@ -1,6 +1,11 @@
+
+
+
+
 // slices/Session/sessionSlice.js
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { jwtDecode } from 'jwt-decode';
 
 const initialState = {
   sessions: [],
@@ -19,51 +24,38 @@ export const fetchAllSessions = createAsyncThunk('sessions/fetchAllSessions', as
   return data;
 });
 
-// export const fetchUserSessions = createAsyncThunk('sessions/fetchUserSessions', async (userId, { getState }) => {
-//   const token = getState().auth.token;
-//   const response = await fetch(`https://localhost:44369/api/Sessions/GetUserSessions?userId=${userId}`, {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-//   const data = await response.json();
-//   console.log(data);
-//   return data;
-// });
-
+  
 export const fetchUserSessions = createAsyncThunk(
-    'sessions/fetchUserSessions',
-    async (id, { getState, rejectWithValue }) => {
-      const token = getState().auth.token;
-      try {
-        const response = await fetch(`https://localhost:44369/api/Sessions/GetUserSessions?userId=${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        
-        if (response.status === 404) {
-          // Handle the 404 status here, e.g., return an empty array or a specific value.
-          return [];
-        }
-        if (!response.ok) {
-          throw new Error(`Failed to fetch user leave: ${response.status}`);
-        }
-        const data = await response.json();
-        console.log(data)
-  
-        if (!data) {
-          throw new Error('Invalid response data');
-        }
-        return data;
-      } catch (error) {
-        return rejectWithValue(error.message);
+  'sessions/fetchUserLeave',
+  async (_, { getState, rejectWithValue }) => {
+    const token = getState().auth.token;
+    const decodedToken = jwtDecode(token);
+    const userId = decodedToken.UserId; // Make sure to use the correct property name
+
+    try {
+      const response = await fetch(`https://localhost:44369/api/Sessions/GetUserSessions?userId=${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.status === 404) {
+        // Handle the 404 status here, e.g., return an empty array or a specific value.
+        return [];
       }
+      if (!response.ok) {
+        throw new Error(`Failed to fetch user leave: ${response.status}`);
+      }
+      const data = await response.json();
+      if (!data) {
+        throw new Error('Invalid response data');
+      }
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
-  );
-  
-
-
+  }
+);
 
 
 
@@ -127,3 +119,9 @@ const sessionSlice = createSlice({
 });
 
 export const { reducer: sessionsReducer } = sessionSlice;
+
+
+
+
+
+
