@@ -98,9 +98,9 @@ const UserSession = () => {
                 <Typography>Event Name: {session.eventName}</Typography>
                 <Typography>Event Type: {session.eventType}</Typography>
                 <Typography>
-                  Event Date: {new Date(session.eventDateTime).toLocaleString()}
+                  Event Date: {new Date(session.eventDate).toLocaleString()}
                 </Typography>
-                {/* <Typography>User ID: {session.userId}</Typography> */}
+              
                 <Typography>User Name: {session.username}</Typography>
                 <Typography>Mentor Name: {session.mentorName}</Typography>
               </StyledPaper>

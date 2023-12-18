@@ -221,7 +221,7 @@ function Leave() {
 
   const [leaveData, setLeaveData] = useState({
     userId: 0,
-    leaveType: '',
+    leaveType: 'null',
     startLeaveDate: '',
     endLeaveDate: '',
     reason: '',
