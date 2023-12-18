@@ -79,7 +79,6 @@ export const updateManualRequestStatus = createAsyncThunk(
         },
       }
     );
-
     if (!response.ok) {
       const errorData = await response.json(); // Assuming the server sends detailed error information in the response body
       throw new Error(`Failed to update manual request status. Server response: ${JSON.stringify(errorData)}`);
@@ -89,9 +88,6 @@ export const updateManualRequestStatus = createAsyncThunk(
     return data;
   }
 );
-
-
-
 // Create the manualrequestSlice
 const manualrequestSlice = createSlice({
   name: 'manualrequests',
@@ -127,6 +123,7 @@ const manualrequestSlice = createSlice({
 });
 
 export default manualrequestSlice.reducer;
+
 
 
 
