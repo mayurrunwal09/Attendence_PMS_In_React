@@ -135,7 +135,7 @@ const Session = () => {
               <TableCell>Event Name</TableCell>
               <TableCell>Event Type</TableCell>
               <TableCell>Event Date</TableCell>
-              <TableCell>User ID</TableCell>
+              {/* <TableCell>User ID</TableCell> */}
               <TableCell>Username</TableCell>
               <TableCell>Mentor Name</TableCell>
             </TableRow>
@@ -146,7 +146,7 @@ const Session = () => {
                 <TableCell>{session.eventName}</TableCell>
                 <TableCell>{session.eventType}</TableCell>
                 <TableCell>{new Date(session.eventDate).toLocaleString()}</TableCell>
-                <TableCell>{session.userId}</TableCell>
+                {/* <TableCell>{session.userId}</TableCell> */}
                 <TableCell>{session.username}</TableCell>
                 <TableCell>{session.mentorName}</TableCell>
               </TableRow>

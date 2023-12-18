@@ -145,7 +145,7 @@ const UserProfile = () => {
                     <TableCell>{fetchedData.password}</TableCell>
                   )}
                 </TableRow>
-                <TableRow>
+                {/* <TableRow>
                   <TableCell>User Type ID</TableCell>
                   {isEditing ? (
                     <TableCell>
@@ -157,7 +157,7 @@ const UserProfile = () => {
                   ) : (
                     <TableCell>{fetchedData.userTypeId}</TableCell>
                   )}
-                </TableRow>
+                </TableRow> */}
                 <TableRow>
                   <TableCell>Role</TableCell>
                   {isEditing ? (
