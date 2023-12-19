@@ -21,26 +21,31 @@ export const fetchManualRequests = createAsyncThunk('manualrequests/fetchManualR
   return data;
 });
 
-// Create an asynchronous thunk for inserting a manual request
 export const insertManualRequest = createAsyncThunk(
   'manualrequests/insertManualRequest',
-  async (requestData) => {
+  async (requestData, { getState }) => {
+    const token = getState().auth.token;
+
     const response = await fetch('https://localhost:44369/api/ManualRequest/InsertManualRequest', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(requestData),
     });
 
     if (!response.ok) {
-      throw new Error('Failed to insert manual request');
+      const errorData = await response.json();
+      throw new Error(`Failed to insert manual request. Server response: ${JSON.stringify(errorData)}`);
     }
 
     const data = await response.json();
     return data;
   }
 );
+
+
 
 // Create an asynchronous thunk for fetching a manual request by user ID
 export const getManualRequestById = createAsyncThunk(
@@ -65,29 +70,35 @@ export const getManualRequestById = createAsyncThunk(
 
 
 export const updateManualRequestStatus = createAsyncThunk(
-  'manualrequests/updateManualRequestStatus',
-  async ({ manualRequestId, status }, { getState }) => {
-    const token = getState().auth.token;
+  'manualApproval/updateManualRequestStatus',
+  async ({ manualRequestId, newStatus }, { rejectWithValue }) => {
+    console.log('manualRequestId', manualRequestId);
+    console.log('newStatus', newStatus);
 
-    const response = await fetch(
-      `https://localhost:44369/api/ManualRequest/UpdateManualRequestStatus?manualRequestId=${manualRequestId}&status=${status}`,
-      {
+    try {
+      const response = await fetch(`https://localhost:44369/api/ManualRequest/UpdateManualRequestStatus?manualRequestId=${manualRequestId}&newStatus=${newStatus} `, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
-      }
-    );
-    if (!response.ok) {
-      const errorData = await response.json(); // Assuming the server sends detailed error information in the response body
-      throw new Error(`Failed to update manual request status. Server response: ${JSON.stringify(errorData)}`);
-    }
+        body: JSON.stringify({ newStatus: String(newStatus) }),
 
-    const data = await response.json();
-    return data;
+      });
+
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(errorMessage);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
   }
 );
+
 // Create the manualrequestSlice
 const manualrequestSlice = createSlice({
   name: 'manualrequests',
@@ -123,6 +134,16 @@ const manualrequestSlice = createSlice({
 });
 
 export default manualrequestSlice.reducer;
+
+
+
+
+
+
+
+
+
+
 
 
 
