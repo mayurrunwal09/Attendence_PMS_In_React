@@ -11,7 +11,7 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableRow,
+  TableRow,MenuItem,Select
 } from '@mui/material';
 import { jwtDecode } from 'jwt-decode';
 
@@ -86,13 +86,18 @@ const ManualRequest = () => {
             {/* Removed userId field from the form */}
             <TextField
               label="Attendance Type"
-              type="text"
+              select
               name="attendenceType"
               value={formData.attendenceType}
               onChange={handleChange}
               fullWidth
               margin="normal"
-            />
+            >
+              <MenuItem value="Attendance">Attendance</MenuItem>
+              <MenuItem value="Lunch Break">Lunch Break</MenuItem>
+              <MenuItem value="Personal Break">Personal Break</MenuItem>
+              <MenuItem value="Official Break">Official Break</MenuItem>
+            </TextField>
             <TextField
               label=""
               type="datetime-local"
@@ -114,8 +119,8 @@ const ManualRequest = () => {
             <TextField
               label="Employee Remark"
               type="text"
-              name="employeeRemart"
-              value={formData.employeeRemart}
+              name="employeeRemark"
+              value={formData.employeeRemark}
               onChange={handleChange}
               fullWidth
               margin="normal"
