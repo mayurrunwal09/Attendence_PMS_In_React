@@ -1,5 +1,5 @@
 # Project Title-PMS System for Attendence
-## Back Project of PMS
+## Back End Project of PMS in Asp.net core webAPI
 https://github.com/mayurrunwal09/Attendence_PMS_Asp.netWebAPI.git
  ## Overview
 This project is a comprehensive web application built with React and Redux, serving as a management system for user sessions, breaks, user profiles, reports, and authentication. It incorporates various features, including manual event creation, user registration, login, and profile management
